@@ -1,173 +1,39 @@
 ---
-title: "Blog with Astro vs Next"
-description: "What are the ups and downs when building blog sites with newest technology"
+title: "Minimalist portfolio"
+description: "Does ***** live up to it's reputation?"
 pubDate: "Jul 20 2023"
 heroImage: "/placeholder-hero.jpg"
 ---
 
-<h1>Writing a Blog with Astro vs Next.js</h1>
-
-<br>
-
-<br>
-
-When it comes to building blogs and Jamstack applications, the landscape of frameworks is quite extensive and offers many great tools to choose from. Among the most popular in the JavaScript ecosystem are [Astro](https://astro.build) and [Next.js](https://nextjs.org). Both frameworks have different philosophies, styles, and capabilities, which makes choosing the right tool for your blog an important decision. In this blog post, we will compare Astro and Next.js in the context of building a blog, from rendering markdown to performance optimizations.
-
-<br>
-
-<h2> The Basics of Astro and Next.js</h2>
-
 <br>
 <br>
-
-[Astro](https://astro.build) is a relatively new, modern front-end framework designed to optimize the delivery of your website using partial hydration. Unlike many other frameworks, Astro doesn't require JavaScript for the runtime, leading to a better performance in the browser. Astro leverages a unique component syntax that allows developers to write components in the languages they prefer (_React_, _Vue_, _Svelte_, or simply _HTML_ and _CSS_).
-
+We humans start most things because of curiosity and challenge, we want to achieve and prove ourselves. And as usual this project started as 
+an excuse. Excuse to learn something new.
 <br>
-
-[Next.js](https://nextjs.org) is an established and robust framework for building React applications, offering capabilities like server-side rendering, static site generation, API routes, and more. Next.js also comes with excellent performance optimizations like automatic code splitting, image optimization, and built-in support for CSS and SCSS modules.
-
 <br>
-
-  <h2>Writing and Rendering Markdown</h2>
-
+My webdev journey started jumping onto hype trains, some justified some not. And this is no different. I chose <a href="https://astro.build/"class="underline">Astro</a>, with .tsx for the reactivity islands as the main technology. Styled by none other than <a href="https://tailwindcss.com/" class="underline">TailwindCSS</a>, and animated by <a href="https://www.framer.com/motion/"class="underline">Framer motion</a>. And Astro's markdown rendering for my blog management. Ideal choice for mostly static site, that only I will update.
 <br>
-
-A key feature for any blog is the ability to use markdown files for content as they provide an easy way to format and structure your text. Here's how we can write and render markdown files with Astro and Next.js.
-
 <br>
+This isn't my first rodeo, I had already build a portfolio site <a href="https://osmak1234-github-io.vercel.app/"class="underline">previously</a>, using NextJS because I didn't understand that there isn't one best JS framework.
+<br>
+<br>
+How surprising I know.
+<br>
+<br>
+This time I chose to go for a more minimalist look with some basic, but elegant animations. Combined with keyboard controlled navigation. 
+**Cough, vim bindings**
 
-<h3>Astro</h3>
+[//]: # "Add showcase gif here of vim nav"
 
 <br>
 <br>
+That brought up a little problem with responsive design, I settled on adding a little beginning animation.
 
-Astro renders markdown files with ease. You just need to use the Astro component syntax to import your markdown file and use it in an `.astro` file.
-
-<br>
-
-1. Install the `@astrojs/renderer-markdown` package:
-
-```bash
-npm install @astrojs/renderer-markdown
-```
-
-2. Create a markdown file in the `src` folder, for example `post.md`.
-
-3. In your `.astro` file, import the markdown content and render it:
-   <br>
-
-```astro
----
-import Post from './post.md';
----
-<article>
-    <Post />
-</article>
-```
-
-<br>
-
-<h3>Next.JS</h3>
-<br>
-<br>
-
-Next.js uses the popular `gray-matter` and `remark` or `mdx-js` libraries to parse and render markdown.
-
-1. Install the required packages:
-
-```bash
-npm install gray-matter remark remark-html react-markdown
-```
-
-2. Create a markdown file in the `posts` folder.
-
-3. In Next.js, you need to parse the markdown content and pass it to a React component as props. You can create a reusable `MarkdownRenderer` component, which takes the markdown content as a prop and renders it using the `react-markdown` library.
-   <br>
-
-```javascript
-import React from "react";
-import ReactMarkdown from "react-markdown";
-import remark from "remark";
-import remarkHtml from "remark-html";
-
-const MarkdownRenderer = ({ content }) => {
-  return (
-    <ReactMarkdown remarkPlugins={[remark(), remarkHtml]}>
-      {content}
-    </ReactMarkdown>
-  );
-};
-
-export default MarkdownRenderer;
-```
-
-<br>
-
-4. Finally, read the markdown file, parse the frontmatter and content, and pass it to the `MarkdownRenderer` component.
-
-<br>
-
-```javascript
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import MarkdownRenderer from "../components/MarkdownRenderer";
-
-const PostPage = ({ content }) => {
-  return (
-    <article>
-      <MarkdownRenderer content={content} />
-    </article>
-  );
-};
-
-export async function getStaticProps() {
-  const postFilePath = path.join(process.cwd(), "posts", "post.md");
-  const fileContents = fs.readFileSync(postFilePath, "utf8");
-  const { content } = matter(fileContents);
-
-  return {
-    props: {
-      content,
-    },
-  };
-}
-
-export default PostPage;
-```
-
-<br>
-
-  <h2> Performance and Optimizations
-</h2>
+[//]: # "Add showcase gif here of mobile solution"
 
 <br>
 <br>
-
-Both Astro and Next.js are focused on performance and offer numerous optimizations out of the box.
-
-<br>
-
-  <h3>Astro</h3>
-
+Maybe a little brute force solution, but I expect most of users to view on desktop. Once I said this, the next recruter will look exclusively on mobile. Remind me why did Murphy introduce this?
 <br>
 <br>
-
-Astro has a unique set of performance optimizations, such as **partial hydration**. Astro only sends the minimal amount of JavaScript required to the client, which leads to higher performance scores, especially on slower networks and devices. Astro also has built-in image optimization features, ensuring that images are served in the right sizes and formats.
-
-<br>
-
-<h3>NextJS</h3>
-
-<br>
-<br>
-
-Next.js has a powerful set of optimizations, including automatic code splitting, server-side rendering, and static site generation, which lead to improved performance. The Next.js Image component ensures the optimized delivery of images. Additionally, Next.js has a large ecosystem, which means you can find plugins, solutions, and resources for common tasks to improve your application's overall performance.
-<br>
-
-<h2>Conclusion</h2>
-
-<br>
-<br>
-
-Both Astro and Next.js are excellent choices for building blogs, offering unique features
+On the technology itself I think that Astro lived up to it's hype, I was able to build this site in under a few days, whilst learning the ropes of this framework, I plan on building a blog site for school, adding some CMS on top. Astro is one of the nicest wordpress alternatives that I have worked with. Providing flexibility of custom components with basic content management using Markdown.

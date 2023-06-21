@@ -19,7 +19,7 @@ type Post = {
 };
 
 export default function Homepage() {
-  let blogTitle = false;
+  // get ready content to render
   const render: Array<Post> = [];
   PROJECTS.forEach((project) => {
     render.push(project);
@@ -36,10 +36,71 @@ export default function Homepage() {
     render.push(blog);
   });
 
-  const [selected, setSelected] = useState(0);
+  // Mobile remove arrow
+  let screenWidth = window.screen.width;
+  const [mobile, setMobile] = useState(false);
 
+  const div = useAnimationControls();
   const controls = useAnimationControls();
 
+  useEffect(() => {
+    if (screenWidth < 768) {
+      setMobile(true);
+      div.start({
+        opacity: 1,
+      });
+    } else {
+      div.start({
+        opacity: 0,
+      });
+    }
+  }, [screenWidth]);
+
+  function hideElement() {
+    controls.start({
+      translateY: [0, -100, -100],
+      translateX: [-10, -10, 700],
+      transition: {
+        duration: 1,
+      },
+    });
+    div
+      .start({
+        translateX: [0, 0, 700],
+        transition: {
+          duration: 1,
+        },
+      })
+      .finally(() => {
+        document.getElementById("mobile-warning").remove();
+        document.getElementById("arrow").remove();
+      });
+  }
+
+  useEffect(() => {
+    if (screenWidth < 768) {
+      setMobile(true);
+      div
+        .start({
+          opacity: 1,
+        })
+        .then(() => {
+          // wait 3 seconds and remove the elelemt
+          setTimeout(hideElement, 3000);
+        });
+    } else {
+      document.getElementById("mobile-warning").remove();
+    }
+    console.log(screenWidth);
+  }, [screenWidth]);
+  // Blog title
+
+  let blogTitle = false;
+
+  // Framer motion
+
+  // Keyboard controls
+  const [selected, setSelected] = useState(0);
   const handleKeyDown = (e) => {
     if (e.keyCode === 74 && selected < render.length - 1) {
       setSelected((selected) => selected + 1);
@@ -48,7 +109,7 @@ export default function Homepage() {
       setSelected((selected) => selected - 1);
     }
     if (e.keyCode === 13) {
-      window.location.href = PROJECTS[selected].link;
+      window.location.href = render[selected].link;
     }
   };
 
@@ -77,6 +138,7 @@ export default function Homepage() {
       });
     }
     console.log(newY);
+    console.log(selected);
     controls.start({
       y: newY.top - 178,
     });
@@ -84,26 +146,38 @@ export default function Homepage() {
 
   return (
     <div className="float-left w-full p-4">
-      <h1 className="text-2xl font-bold" id="heading">
+      <h1 className="text-2xl font-bold mb-2" id="heading">
         Projects
       </h1>
       <motion.h1
         animate={controls}
         className="text-xl font-bold relative right-[18px]"
+        id="arrow"
       >
         {"~>"}
       </motion.h1>
-      {render.map(({ title, link, description, category, type }, index) => {
+      <motion.div
+        animate={div}
+        className="border-white border p-8 z-10 rounded-md position-fixed "
+        id="mobile-warning"
+      >
+        <h3 className="text-xl font-bold">
+          For the full experience view on desktop
+        </h3>
+      </motion.div>
+      {render.map(({ title, link, description, type }, index) => {
         if (type === "blog" && !blogTitle) {
           blogTitle = true;
           return (
             <div>
-              <h1 className="text-2xl font-bold">Blog posts</h1>
+              <h1 className="text-2xl font-bold mt-2">Blog posts</h1>
               <div
                 id={index.toString()}
                 key={title}
                 className={`${
-                  selected === index ? "text-white font-bold" : "text-gray-500"
+                  selected === index || mobile
+                    ? "text-white font-bold"
+                    : "text-gray-500"
                 } p-2`}
               >
                 <h2 className="text-xl">
@@ -119,7 +193,9 @@ export default function Homepage() {
               id={index.toString()}
               key={title}
               className={`${
-                selected === index ? "text-white font-bold" : "text-gray-500"
+                selected === index || mobile
+                  ? "text-white font-bold"
+                  : "text-gray-500"
               } p-2`}
             >
               <h2 className="text-xl">
@@ -134,7 +210,9 @@ export default function Homepage() {
               id={index.toString()}
               key={title}
               className={`${
-                selected === index ? "text-white font-bold" : "text-gray-500"
+                selected === index || mobile
+                  ? "text-white font-bold"
+                  : "text-gray-500"
               } p-2`}
             >
               <h2 className="text-xl">
@@ -146,11 +224,17 @@ export default function Homepage() {
         }
       })}
       <div className="text-gray-500 text-xs p-2">
-        <span className="font-bold">j</span> to move down
-        <br />
-        <span className="font-bold">k</span> to move up
-        <br />
-        <span className="font-bold">enter</span> to open
+        {mobile ? (
+          ""
+        ) : (
+          <div>
+            <span className="font-bold">j</span> to move down
+            <br />
+            <span className="font-bold">k</span> to move up
+            <br />
+            <span className="font-bold">enter</span> to open
+          </div>
+        )}
       </div>
     </div>
   );

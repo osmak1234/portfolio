@@ -30,7 +30,7 @@ export const PROJECTS = [
   {
     title: "HangRS",
     description: "Cli hangman game.",
-    link: "https://github.com/osmak1234/hangrd",
+    link: "https://github.com/osmak1234/hangrs",
     category: "Rust",
     pubDate: new Date(),
     type: "Project",
@@ -40,14 +40,6 @@ export const PROJECTS = [
     description: "Pomodoro cli timer.",
     link: "https://github.com/osmak1234/pomodoro",
     category: "Rust",
-    pubDate: new Date(),
-    type: "Project",
-  },
-  {
-    title: "Blog",
-    description: "My blog.",
-    link: "/blog",
-    category: "AstroJS",
     pubDate: new Date(),
     type: "Project",
   },
