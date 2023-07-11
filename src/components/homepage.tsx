@@ -1,5 +1,3 @@
-import { Projects } from "./projects";
-import Blog from "./blog";
 import { useState, useEffect } from "react";
 import { PROJECTS } from "../consts";
 import { getCollection } from "astro:content";
@@ -25,15 +23,17 @@ export default function Homepage() {
     render.push(project);
   });
   posts.forEach((post) => {
-    const blog: Post = {
-      title: post.data.title,
-      link: `/blog/${post.slug}`,
-      description: post.data.description,
-      category: "blog",
-      pubDate: post.data.pubDate,
-      type: "blog",
-    };
-    render.push(blog);
+    if (!post.data.hide) {
+      const blog: Post = {
+        title: post.data.title,
+        link: `/blog/${post.slug}`,
+        description: post.data.description,
+        category: "blog",
+        pubDate: post.data.pubDate,
+        type: "blog",
+      };
+      render.push(blog);
+    }
   });
 
   // Mobile remove arrow
@@ -43,56 +43,6 @@ export default function Homepage() {
   const div = useAnimationControls();
   const controls = useAnimationControls();
 
-  useEffect(() => {
-    if (screenWidth < 768) {
-      setMobile(true);
-      div.start({
-        opacity: 1,
-      });
-    } else {
-      div.start({
-        opacity: 0,
-      });
-    }
-  }, [screenWidth]);
-
-  function hideElement() {
-    controls.start({
-      translateY: [0, -100, -100],
-      translateX: [-10, -10, 700],
-      transition: {
-        duration: 1,
-      },
-    });
-    div
-      .start({
-        translateX: [0, 0, 700],
-        transition: {
-          duration: 1,
-        },
-      })
-      .finally(() => {
-        document.getElementById("mobile-warning").remove();
-        document.getElementById("arrow").remove();
-      });
-  }
-
-  useEffect(() => {
-    if (screenWidth < 768) {
-      setMobile(true);
-      div
-        .start({
-          opacity: 1,
-        })
-        .then(() => {
-          // wait 3 seconds and remove the elelemt
-          setTimeout(hideElement, 3000);
-        });
-    } else {
-      document.getElementById("mobile-warning").remove();
-    }
-    console.log(screenWidth);
-  }, [screenWidth]);
   // Blog title
 
   let blogTitle = false;
@@ -156,15 +106,6 @@ export default function Homepage() {
       >
         {"~>"}
       </motion.h1>
-      <motion.div
-        animate={div}
-        className="border-white border p-8 z-10 rounded-md position-fixed "
-        id="mobile-warning"
-      >
-        <h3 className="text-xl font-bold">
-          For the full experience view on desktop
-        </h3>
-      </motion.div>
       {render.map(({ title, link, description, type }, index) => {
         if (type === "blog" && !blogTitle) {
           blogTitle = true;
@@ -172,6 +113,8 @@ export default function Homepage() {
             <div>
               <h1 className="text-2xl font-bold mt-2">Blog posts</h1>
               <div
+                onTouchStart={() => setSelected(index)}
+                onMouseOver={() => setSelected(index)}
                 id={index.toString()}
                 key={title}
                 className={`${
@@ -190,6 +133,8 @@ export default function Homepage() {
         } else if (type === "blog" && blogTitle) {
           return (
             <div
+              onMouseOver={() => setSelected(index)}
+              onTouchStart={() => setSelected(index)}
               id={index.toString()}
               key={title}
               className={`${
@@ -207,6 +152,8 @@ export default function Homepage() {
         } else if (type === "Project") {
           return (
             <motion.div
+              onMouseOver={() => setSelected(index)}
+              onTouchStart={() => setSelected(index)}
               id={index.toString()}
               key={title}
               className={`${

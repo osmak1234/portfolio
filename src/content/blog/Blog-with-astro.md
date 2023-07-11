@@ -33,7 +33,7 @@ That brought up a little problem with responsive design, I settled on adding a l
 
 <br>
 <br>
-Maybe a little brute force solution, but I expect most of users to view on desktop. Once I said this, the next recruter will look exclusively on mobile. Remind me why did Murphy introduce this?
+Maybe a little brute force solution, but I expect most of users to view on desktop. But knowing Murphy's Law, the next recruiter will undoubtedly examine it exclusively on mobile. Who let Murphy decide what will happen?
 <br>
 <br>
 On the technology itself I think that Astro lived up to it's hype, I was able to build this site in under a few days, whilst learning the ropes of this framework, I plan on building a blog site for school, adding some CMS on top. Astro is one of the nicest wordpress alternatives that I have worked with. Providing flexibility of custom components with basic content management using Markdown.
