@@ -87,18 +87,17 @@ export default function Homepage() {
         inline: "nearest",
       });
     }
-    console.log(newY);
-    console.log(selected);
     controls.start({
-      y: newY.top - 178,
+      y: newY.top - 146,
+      x: [0, -10, -20, -10, 0],
+      transition: {
+        duration: 0.2,
+      },
     });
   }, [selected]);
 
   return (
     <div className="float-left w-full p-4">
-      <h1 className="text-2xl font-bold mb-2" id="heading">
-        Projects
-      </h1>
       <motion.h1
         animate={controls}
         className="text-xl font-bold relative right-[18px]"
@@ -106,6 +105,9 @@ export default function Homepage() {
       >
         {"~>"}
       </motion.h1>
+      <h1 className="text-2xl font-bold" id="heading">
+        Projects
+      </h1>
       {render.map(({ title, link, description, type }, index) => {
         if (type === "blog" && !blogTitle) {
           blogTitle = true;
@@ -165,7 +167,7 @@ export default function Homepage() {
               <h2 className="text-xl">
                 <a href={link}>{title}</a>
               </h2>
-              <p>{description}</p>
+              <a href={link}>{description}</a>
             </motion.div>
           );
         }
