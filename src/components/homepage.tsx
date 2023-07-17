@@ -42,6 +42,7 @@ export default function Homepage() {
 
   const div = useAnimationControls();
   const controls = useAnimationControls();
+  const onBlog = false;
 
   // Blog title
 
@@ -82,6 +83,10 @@ export default function Homepage() {
   useEffect(() => {
     let newY = getOffset(document.getElementById(selected.toString()));
     let element = document.getElementById(selected.toString() ?? "heading");
+    let offset = 0;
+    if (selected == PROJECTS.length) {
+      offset = -32;
+    }
     if (element !== null) {
       element.scrollIntoView({
         behavior: "smooth",
@@ -90,7 +95,7 @@ export default function Homepage() {
       });
     }
     controls.start({
-      y: newY.top - 146,
+      y: newY.top - 146 - offset,
     });
   }, [selected]);
 
@@ -107,65 +112,37 @@ export default function Homepage() {
         Projects
       </h1>
       {render.map(({ title, link, description, type, technologies }, index) => {
-        if (type === "blog" && !blogTitle) {
-          blogTitle = true;
-          return (
-            <div>
-              <h1 className="text-2xl font-bold mt-2">Blog posts</h1>
-              <div
-                onTouchStart={() => setSelected(index)}
-                onMouseEnter={() => setSelected(index)}
-                id={index.toString()}
-                key={title}
-                className={`${
-                  selected === index || mobile ? "text-white " : "text-gray-500"
-                } p-2`}
-              >
-                <h2 className="text-xl">
-                  <a href={link}>{title}</a>
-                </h2>
-                <p>{description}</p>
-              </div>
-            </div>
-          );
-        } else if (type === "blog" && blogTitle) {
-          return (
-            <div
-              onMouseEnter={() => setSelected(index)}
-              onTouchStart={() => setSelected(index)}
-              id={index.toString()}
-              key={title}
-              className={`${
-                selected === index || mobile ? "text-white" : "text-gray-500"
-              } p-2`}
-            >
+        const isBlog = type === "blog";
+        const isSelected = selected === index || mobile;
+        const classNames = `p-2 ${isSelected ? "text-white" : "text-gray-500"}`;
+
+        return (
+          <div
+            key={title}
+            onMouseEnter={() => setSelected(index)}
+            onTouchStart={() => setSelected(index)}
+            id={index.toString()}
+          >
+            {isBlog && !blogTitle && (
+              <>
+                <h1 className="text-2xl font-bold mt-2">Blog posts</h1>
+                {(blogTitle = true)}
+              </>
+            )}
+
+            <motion.div className={classNames}>
               <h2 className="text-xl">
                 <a href={link}>{title}</a>
               </h2>
-              <p>{description}</p>
-            </div>
-          );
-        } else if (type === "Project") {
-          return (
-            <motion.div
-              onMouseEnter={() => setSelected(index)}
-              onTouchStart={() => setSelected(index)}
-              id={index.toString()}
-              key={title}
-              className={`${
-                selected === index || mobile ? "text-white " : "text-gray-500"
-              } p-2`}
-            >
-              <h2 className="text-xl">
-                <a href={link}>{title}</a>
-              </h2>
-              <a href={link}>{description}</a>
-              <p className="text-[10px] text-gray-500">
-                {technologies.join(", ")}
-              </p>
+              {isBlog ? <p>{description}</p> : <a href={link}>{description}</a>}
+              {isBlog || (
+                <p className="text-[10px] text-gray-500">
+                  {technologies.join(", ")}
+                </p>
+              )}
             </motion.div>
-          );
-        }
+          </div>
+        );
       })}
       <div className="text-gray-500 text-xs p-2">
         {mobile ? (

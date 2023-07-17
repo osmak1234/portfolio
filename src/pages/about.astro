@@ -4,9 +4,8 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_DESCRIPTION } from "../consts";
 
-import PLanguages from "../components/p-languages.astro";
-import MLaguages from "../components/m-languages.astro";
 import Technologies from "../components/technologies.astro";
+import Tools from "../components/tools.astro";
 ---
 
 <!DOCTYPE html>
@@ -25,15 +24,14 @@ import Technologies from "../components/technologies.astro";
       <p class="text-lg text-center mt-4">
         I prioritize backend developement using Node with TS and rust, instead
         of frontend. I'm based in Czech republic.<br />
-        <br />The technologies I'm most familiar with are:
-        <ul class="text-left m-auto w-full h-full">
-          <PLanguages />
-          <Technologies />
-          <MLaguages />
-        </ul>
+        <h1 class="text-2xl font-bold m-4">Technologies</h1>
+        <Technologies />
+        <h1 class="text-2xl font-bold m-4">Tools</h1>
+        <Tools />
         <br />
       </p>
 
+      <h1 class="text-2xl font-bold m-4">Typing speed (WPM)</h1>
       <a href="https://monkeytype.com/profile/kupecsamo">
         <img
           src="https://raw.githubusercontent.com/osmak1234/osmak1234/monkeytype-readme/monkeytype-readme-pb.svg"
