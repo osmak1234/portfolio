@@ -4,8 +4,8 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_DESCRIPTION } from "../consts";
 
-import Technologies from "../components/technologies.astro";
-import Tools from "../components/tools.astro";
+import Technologies from "../components/technologies";
+import Tools from "../components/tools";
 ---
 
 <!DOCTYPE html>
@@ -25,9 +25,9 @@ import Tools from "../components/tools.astro";
         I prioritize backend developement using Node with TS and rust, instead
         of frontend. I'm based in Czech republic.<br />
         <h1 class="text-2xl font-bold m-4">Technologies</h1>
-        <Technologies />
+        <Technologies client:only />
         <h1 class="text-2xl font-bold m-4">Tools</h1>
-        <Tools />
+        <Tools client:only />
         <br />
       </p>
 
