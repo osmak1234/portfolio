@@ -1,11 +1,45 @@
 ---
-import Layout from "../layouts/BlogPost.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_DESCRIPTION } from "../consts";
+
+import PLanguages from "../components/p-languages.astro";
+import MLaguages from "../components/m-languages.astro";
+import Technologies from "../components/technologies.astro";
 ---
 
-<Layout
-  title="About Me"
-  description="Lorem ipsum dolor sit amet"
-  pubDate={new Date("August 08 2021")}
-  updatedDate={new Date("August 08 2022")}
-  heroImage="/placeholder-about.jpg"
-/>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <BaseHead title={"Tadeáš Portfolio"} description={SITE_DESCRIPTION} />
+    <title>Tadeáš Portfolio</title>
+  </head>
+  <body>
+    <Header title={"Tadeáš"} />
+    <main
+      class="flex flex-col items-center content-center p-4 max-w-[65ch] m-auto"
+    >
+      <h1 class="text-4xl font-bold">About</h1>
+
+      <p class="text-lg text-center mt-4">
+        I prioritize backend developement using Node with TS and rust, instead
+        of frontend. I'm based in Czech republic.<br />
+        <br />The technologies I'm most familiar with are:
+        <ul class="text-left m-auto w-full h-full">
+          <PLanguages />
+          <Technologies />
+          <MLaguages />
+        </ul>
+        <br />
+      </p>
+
+      <a href="https://monkeytype.com/profile/kupecsamo">
+        <img
+          src="https://raw.githubusercontent.com/osmak1234/osmak1234/monkeytype-readme/monkeytype-readme-pb.svg"
+        />
+      </a>
+    </main>
+    <Footer />
+  </body>
+</html>

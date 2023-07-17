@@ -11,7 +11,7 @@ type Post = {
   title: string;
   link: string;
   description: string;
-  category: string;
+  technologies: Array<string>;
   pubDate: Date;
   type: string;
 };
@@ -28,7 +28,7 @@ export default function Homepage() {
         title: post.data.title,
         link: `/blog/${post.slug}`,
         description: post.data.description,
-        category: "blog",
+        technologies: ["blog"],
         pubDate: post.data.pubDate,
         type: "blog",
       };
@@ -54,9 +54,11 @@ export default function Homepage() {
   const handleKeyDown = (e) => {
     if (e.keyCode === 74 && selected < render.length - 1) {
       setSelected((selected) => selected + 1);
+      console.log(selected);
     }
     if (e.keyCode === 75 && selected > 0) {
       setSelected((selected) => selected - 1);
+      console.log(selected);
     }
     if (e.keyCode === 13) {
       window.location.href = render[selected].link;
@@ -89,10 +91,6 @@ export default function Homepage() {
     }
     controls.start({
       y: newY.top - 146,
-      x: [0, -10, -20, -10, 0],
-      transition: {
-        duration: 0.2,
-      },
     });
   }, [selected]);
 
@@ -108,7 +106,7 @@ export default function Homepage() {
       <h1 className="text-2xl font-bold" id="heading">
         Projects
       </h1>
-      {render.map(({ title, link, description, type }, index) => {
+      {render.map(({ title, link, description, type, technologies }, index) => {
         if (type === "blog" && !blogTitle) {
           blogTitle = true;
           return (
@@ -116,13 +114,11 @@ export default function Homepage() {
               <h1 className="text-2xl font-bold mt-2">Blog posts</h1>
               <div
                 onTouchStart={() => setSelected(index)}
-                onMouseOver={() => setSelected(index)}
+                onMouseEnter={() => setSelected(index)}
                 id={index.toString()}
                 key={title}
                 className={`${
-                  selected === index || mobile
-                    ? "text-white font-bold"
-                    : "text-gray-500"
+                  selected === index || mobile ? "text-white " : "text-gray-500"
                 } p-2`}
               >
                 <h2 className="text-xl">
@@ -135,14 +131,12 @@ export default function Homepage() {
         } else if (type === "blog" && blogTitle) {
           return (
             <div
-              onMouseOver={() => setSelected(index)}
+              onMouseEnter={() => setSelected(index)}
               onTouchStart={() => setSelected(index)}
               id={index.toString()}
               key={title}
               className={`${
-                selected === index || mobile
-                  ? "text-white font-bold"
-                  : "text-gray-500"
+                selected === index || mobile ? "text-white" : "text-gray-500"
               } p-2`}
             >
               <h2 className="text-xl">
@@ -154,20 +148,21 @@ export default function Homepage() {
         } else if (type === "Project") {
           return (
             <motion.div
-              onMouseOver={() => setSelected(index)}
+              onMouseEnter={() => setSelected(index)}
               onTouchStart={() => setSelected(index)}
               id={index.toString()}
               key={title}
               className={`${
-                selected === index || mobile
-                  ? "text-white font-bold"
-                  : "text-gray-500"
+                selected === index || mobile ? "text-white " : "text-gray-500"
               } p-2`}
             >
               <h2 className="text-xl">
                 <a href={link}>{title}</a>
               </h2>
               <a href={link}>{description}</a>
+              <p className="text-[10px] text-gray-500">
+                {technologies.join(", ")}
+              </p>
             </motion.div>
           );
         }
