@@ -88,11 +88,6 @@ export default function Homepage() {
       offset = -32;
     }
     if (element !== null) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
     }
     controls.start({
       y: newY.top - 146 - offset,
