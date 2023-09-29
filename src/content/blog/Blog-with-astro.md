@@ -3,6 +3,7 @@ title: "Minimalist portfolio"
 description: "Does ***** live up to it's reputation?"
 pubDate: "Jul 20 2023"
 heroImage: "/placeholder-hero.jpg"
+hide: true
 ---
 
 <br>

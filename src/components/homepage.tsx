@@ -98,7 +98,7 @@ export default function Homepage() {
     <div className="float-left w-full p-4">
       <motion.h1
         animate={controls}
-        className="text-xl font-bold relative right-[18px]"
+        className="text-xl font-bold relative right-[18px] -z-[1]"
         id="arrow"
       >
         {"~>"}
@@ -126,15 +126,22 @@ export default function Homepage() {
             )}
 
             <motion.div className={classNames}>
-              <h2 className="text-xl">
-                <a href={link}>{title}</a>
-              </h2>
-              {isBlog ? <p>{description}</p> : <a href={link}>{description}</a>}
-              {isBlog || (
-                <p className="text-[10px] text-gray-500">
-                  {technologies.join(", ")}
-                </p>
-              )}
+              <>
+                <a className="text-xl font-bold z-10" href={link}>
+                  {title}
+                </a>
+                <br />
+                {isBlog ? (
+                  <p>{description}</p>
+                ) : (
+                  <a href={link}>{description}</a>
+                )}
+                {isBlog || (
+                  <p className="text-[10px] text-gray-500">
+                    {technologies.join(", ")}
+                  </p>
+                )}
+              </>
             </motion.div>
           </div>
         );

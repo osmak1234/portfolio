@@ -3,7 +3,7 @@ title: "Privacy, and why I take it seriously"
 description: "My reasoning for increasing my online privacy."
 pubDate: "Jul 20 2023"
 heroImage: "/privacy.jpg"
-hide: false
+hide: true
 ---
 
 I have recently started hearing more and more about people who care about their online privacy. Maybe it's just my internet bubble, but I think the general public is starting to catch on.
