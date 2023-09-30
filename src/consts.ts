@@ -4,7 +4,7 @@
 export const SITE_DESCRIPTION = "Welcome to my website!";
 export const PROJECTS = [
   {
-    title: "Quicktick Frontend ✔️",
+    title: "Quicktick Frontend ✅",
     description: "Todo application frontend, Webapp, Android",
     link: "https://quicktick-next.vercel.app/?show=force",
     technologies: [
@@ -19,7 +19,7 @@ export const PROJECTS = [
     type: "Project",
   },
   {
-    title: "Quicktick Backend ✔️",
+    title: "Quicktick Backend ✅",
     description: "Backend for my todo app",
     link: "https://github.com/osmak1234/public-quicktick-api",
     technologies: [
@@ -84,19 +84,19 @@ export const PROJECTS = [
     pubDate: new Date(),
     type: "Project",
   },
-  {
-    title: "Ukladejto ⏳",
-    description: "Web app for chatting and sending files.",
-    link: "https://ukladejto-git-prod-osmak1234.vercel.app/",
-    technologies: [
-      "NextJS",
-      "TypeScript",
-      "PostgreSQL",
-      "Prisma",
-      "TRPC",
-      "FramerMotion",
-    ],
-    pubDate: new Date(),
-    type: "Project",
-  },
+  // {
+  //   title: "Ukladejto ⏳",
+  //   description: "Web app for chatting and sending files.",
+  //   link: "https://ukladejto-git-prod-osmak1234.vercel.app/",
+  //   technologies: [
+  //     "NextJS",
+  //     "TypeScript",
+  //     "PostgreSQL",
+  //     "Prisma",
+  //     "TRPC",
+  //     "FramerMotion",
+  //   ],
+  //   pubDate: new Date(),
+  //   type: "Project",
+  // },
 ];
